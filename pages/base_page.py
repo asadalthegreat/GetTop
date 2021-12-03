@@ -1,3 +1,4 @@
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 # from support.logger import logger
@@ -45,3 +46,7 @@ class Page:
 
     def verify_url_contains_query(self, query):
         assert query in self.driver.current_url, f'{query} not in {self.driver.current_url}'
+
+    def hit_enter(self, *locator):
+        e = self.driver.find_element(*locator)
+        e.send_keys(Keys.RETURN)
