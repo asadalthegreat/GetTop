@@ -22,5 +22,17 @@ Feature: Homepage
     Then I verify that I've navigated to the <device> category page
   Examples:
     |device |
-    |ipad|
-    |macbook|
+    |iPad|
+    |MacBook|
+
+  Scenario Outline: Browse Categories links function correctly
+    Given I open the Gettop home page
+    When Browse Our Categories text is visible
+    Then I click on the <device> category
+    And I verify that I've navigated to the <device> category page
+  Examples:
+    |device |
+    |Accessories|
+    |iPad|
+    |iPhone|
+    |MacBook|

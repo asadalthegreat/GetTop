@@ -33,4 +33,15 @@ def click_macbook_banner(context):
 
 @then('I verify that I\'ve navigated to the {device} category page')
 def verify_correct_url(context, device):
+    device = device.lower()
     context.app.homepage.verify_correct_url(device)
+
+
+@when('Browse Our Categories text is visible')
+def browse_our_categories_text(context):
+    context.app.homepage.browse_our_categories_text()
+
+
+@then('I click on the {device} category')
+def click_device_category(context, device):
+    context.app.homepage.click_device_category(device)
