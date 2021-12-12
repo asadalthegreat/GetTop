@@ -42,6 +42,24 @@ def browse_our_categories_text(context):
     context.app.homepage.browse_our_categories_text()
 
 
+@when('best Selling, Latest, and Top Rated Categories are visible')
+def footer_categories_are_visible(context):
+    context.app.homepage.footer_categories_are_visible()
+
+
+@when('all products in the footer have a price, name, and star-rating')
+def footer_product_elements_are_visible(context):
+    context.app.footer_product_elements_are_visible(context)
+
+
+@when('footer has a button to go back to the top')
+def back_to_top_is_visible(context):
+    context.app.homepage.back_to_top_is_visible()
+
 @then('I click on the {device} category')
 def click_device_category(context, device):
     context.app.homepage.click_device_category(device)
+
+@then('I click on the footer device {device}')
+def click_footer_device_category(context, device):
+    context.app.homepage.click_footer_device_category(device)

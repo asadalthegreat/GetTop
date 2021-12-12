@@ -21,7 +21,7 @@ Feature: Homepage
     When I click on the <device> banner
     Then I verify that I've navigated to the <device> category page
   Examples:
-    |device |
+    |device|
     |iPad|
     |MacBook|
 
@@ -31,8 +31,25 @@ Feature: Homepage
     Then I click on the <device> category
     And I verify that I've navigated to the <device> category page
   Examples:
-    |device |
+    |device|
     |Accessories|
     |iPad|
     |iPhone|
     |MacBook|
+
+Scenario Outline: Footer products are visible and links function correctly
+  Given I open the Gettop home page
+  When best Selling, Latest, and Top Rated Categories are visible
+#  When all products in the footer have a price, name, and star-rating
+  When footer has a button to go back to the top
+  Then I click on the footer device <device>
+  And I verify that I've navigated to the <device> category page
+
+  Examples:
+  |device|
+  |Mac|
+  |IPhone|
+  |IPad|
+  |Watch|
+  |Accessories|
+

@@ -8,11 +8,12 @@ class Homepage(Page):
     IPAD_BANNER = (By.CSS_SELECTOR, 'a[href="/product-category/ipad/"]')
     MACBOOK_BANNER = (By.CSS_SELECTOR, 'a[href="/product-category/macbook/"]')
     BROWSE_TEXT = (By.XPATH, '//span[text()="Browse our Categories"]')
-    ACCESS_CATEGORY = (By.CSS_SELECTOR, 'img[alt="Accessories"]')
-    IPAD_CATEGORY = (By.CSS_SELECTOR, 'img[alt="iPad"]')
-    IPHONE_CATEGORY = (By.CSS_SELECTOR, 'img[alt="iPhone"]')
-    MACBOOK_CATEGORY = (By.CSS_SELECTOR, 'img[alt="MacBook"]')
-    DEVICE_LOCATOR = (By.CSS_SELECTOR, 'img[alt="{DEVICE}"]') #This locator isn't working, I'm not sure why - something with uppercase
+    DEVICE_LOCATOR = (By.CSS_SELECTOR, 'img[alt="{DEVICE}"]')
+    FOOTER_DEVICE_LOCATOR = (By.XPATH, '//ul[@id]//li//a[text()="{DEVICE}"]')
+    BACK_TO_TOP = (By.CSS_SELECTOR, 'a.back-to-top')
+    BEST_SELLING = (By.XPATH, '//span[text()="Best Selling"]')
+    LATEST = (By.XPATH, '//span[text()="Latest"]')
+    TOP_RATED = (By.XPATH, '//span[text()="Top Rated"]')
 
 
     def _get_expected_arrow(self, arrow):
@@ -36,6 +37,17 @@ class Homepage(Page):
     def macbook_banner_is_visible(self):
         self.wait_for_element_appear(*self.MACBOOK_BANNER)
 
+    def back_to_top_is_visible(self):
+        self.wait_for_element_appear(*self.BACK_TO_TOP)
+
+    def footer_categories_are_visible(self):
+        self.wait_for_element_appear(*self.BEST_SELLING)
+        self.wait_for_element_appear(*self.LATEST)
+        self.wait_for_element_appear(*self.TOP_RATED)
+
+    def footer_product_elements_are_visible(self):
+        print('test')
+
     def click_ipad_banner(self):
         self.click(*self.IPAD_BANNER)
 
@@ -50,7 +62,6 @@ class Homepage(Page):
     def browse_our_categories_text(self):
         self.wait_for_element_appear(*self.BROWSE_TEXT)
 
-    # More efficient implementation if done correctly
     def _get_expected_device(self, device):
         return [self.DEVICE_LOCATOR[0], self.DEVICE_LOCATOR[1].replace('{DEVICE}', device)]
 
@@ -58,14 +69,10 @@ class Homepage(Page):
         locator = self._get_expected_device(device)
         self.click(*locator)
 
-    def click_accessories_cat(self):
-        self.click(*self.ACCESS_CATEGORY)
+    def _get_footer_expected_device(self, device):
+        return [self.FOOTER_DEVICE_LOCATOR[0], self.FOOTER_DEVICE_LOCATOR[1].replace('{DEVICE}', device)]
 
-    def click_ipad_cat(self):
-        self.click(*self.IPAD_CATEGORY)
+    def click_footer_device_category(self, device: str):
+        locator = self._get_footer_expected_device(device)
+        self.click(*locator)
 
-    def click_iphone_cat(self):
-        self.click(*self.IPHONE_CATEGORY)
-
-    def click_macbook_cat(self):
-        self.click(*self.MACBOOK_CATEGORY)
