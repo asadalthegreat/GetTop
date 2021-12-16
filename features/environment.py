@@ -10,8 +10,12 @@ from selenium.webdriver.support.events import EventFiringWebDriver
 bs_user = 'jordan_c0zR4N' #old
 bs_pw = 'xNaQBBGqEwH53vFEGXWk'#old
 
-# Allure command:
-# behave -f allure_behave.formatter:AllureFormatter -o test_results/ features/tests/product_page.feature
+# Allure command to run specific feature file:
+# behave -f allure_behave.formatter:AllureFormatter -o test_results/ features/tests/search.feature
+# Allure command to run all tests:
+# behave -f allure_behave.formatter:AllureFormatter -o test_results/ features
+# Allure command to convert .json files to allure report:
+# allure serve test_results/
 
 
 def browser_init(context, test_name):
@@ -19,9 +23,9 @@ def browser_init(context, test_name):
     :param context: Behave context
     :param test_name: scenario.name
     """
-    context.driver = webdriver.Chrome()
+    # context.driver = webdriver.Chrome()
     # context.driver = webdriver.Safari()
-    # context.driver = webdriver.Firefox(executable_path='/Users/svetlanalevinsohn/JobEasy/7-python-selenium-automation/geckodriver')
+    # context.driver = webdriver.Firefox(executable_path='/Users/jordan/Projects/GetTop/geckodriver')
 
     ## HEADLESS MODE ####
     # options = webdriver.ChromeOptions()
@@ -32,18 +36,21 @@ def browser_init(context, test_name):
     ### for drivers ###
     # context.driver = EventFiringWebDriver(webdriver.Chrome(), MyListener())
     # for headless mode ###
+    # options = webdriver.ChromeOptions()
+    # options.add_argument('--headless')
     # context.driver = EventFiringWebDriver(webdriver.Chrome(chrome_options = options), MyListener())
 
-    # ### for browerstack ###
-    # desired_cap = {
-    #     'browser': 'Chrome',
-    #     # 'browser_version': '94',   # If removed it will run on latest browser version
-    #     # 'os': 'Windows',           # If removed it will run a random os
-    #     # 'os_version': '10',
-    #     'name': test_name
-    # }
-    # url = f'http://{bs_user}:{bs_pw}@hub-cloud.browserstack.com/wd/hub'
-    # context.driver = webdriver.Remote(url, desired_capabilities=desired_cap)
+    ### for browerstack ###
+    desired_cap = {
+        'browser': 'Chrome',
+        # 'browser': 'Firefox',
+        # 'browser_version': '94',   # If removed it will run on latest browser version
+        # 'os': 'Windows',           # If removed it will run a random os
+        # 'os_version': '10',
+        'name': test_name
+    }
+    url = f'http://{bs_user}:{bs_pw}@hub-cloud.browserstack.com/wd/hub'
+    context.driver = webdriver.Remote(url, desired_capabilities=desired_cap)
 
     # context.driver.maximize_window()
     context.driver.implicitly_wait(5)
